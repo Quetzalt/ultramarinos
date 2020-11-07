@@ -33,6 +33,11 @@ class ProveedorBloc with Validators {
     obtenerProv();
   }
 
+  editarProv(ProveedorModel proveedor) async {
+    await DBProvider.db.updateProveedor(proveedor);
+    obtenerProv();
+  }
+
   borrarProv(int id) async {
     await DBProvider.db.deleteProveedor(id);
     obtenerProv();

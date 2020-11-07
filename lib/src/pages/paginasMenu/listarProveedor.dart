@@ -46,7 +46,8 @@ class ListarProveedor extends StatelessWidget {
                   subtitle: Text('ID: ${prov[i].id}'),
                   trailing:
                       Icon(Icons.keyboard_arrow_right, color: Colors.grey),
-                  onTap: () => utils.abrirProv(context, prov[i]),
+                  onTap: () => Navigator.pushNamed(context, 'proveedor',
+                      arguments: prov[i]),
                 )));
       },
     );

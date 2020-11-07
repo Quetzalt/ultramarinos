@@ -30,6 +30,8 @@ class _ProveedorPageState extends State<ProveedorPage> {
   @override
   Widget build(BuildContext context) {
     final ProveedorModel provData = ModalRoute.of(context).settings.arguments;
+    final ProveedorModel prov = ModalRoute.of(context).settings.arguments;
+    // _init(prov);
 
     if (provData != null) {
       proveedor = provData;
@@ -39,25 +41,36 @@ class _ProveedorPageState extends State<ProveedorPage> {
       appBar: AppBar(
         title: Text('Registrar Proveedor'),
       ),
-      body: Form(
-        key: formKey,
-        child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-          children: [
-            SizedBox(height: 60),
-            _crearNombre(),
-            _crearApellido(),
-            _crearDireccion(),
-            _crearTelefono(),
-            SizedBox(height: 50),
-            _crearBoton(context),
-            SizedBox(height: 10),
-            _verProveedores(context)
-          ],
-        ),
+      body: _formulario(prov),
+    );
+  }
+
+  Widget _formulario(ProveedorModel prov) {
+    return Form(
+      key: formKey,
+      child: ListView(
+        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+        children: [
+          SizedBox(height: 60),
+          _crearNombre(),
+          _crearApellido(),
+          _crearDireccion(),
+          _crearTelefono(),
+          SizedBox(height: 50),
+          _crearBoton(context, prov),
+          SizedBox(height: 10),
+          _verProveedores(context)
+        ],
       ),
     );
   }
+
+  // _init(ProveedorModel prov) {
+  //   nombreController.text = prov.nombre;
+  //   apellidosController.text = prov.apellidos;
+  //   direccionController.text = prov.direccion;
+  //   telefonoController.text = prov.telefono;
+  // }
 
   Widget _crearNombre() {
     return TextFormField(
@@ -147,7 +160,7 @@ class _ProveedorPageState extends State<ProveedorPage> {
     );
   }
 
-  Widget _crearBoton(BuildContext context) {
+  Widget _crearBoton(BuildContext context, ProveedorModel prov) {
     return Center(
       child: Material(
         elevation: 5.0,
@@ -163,12 +176,22 @@ class _ProveedorPageState extends State<ProveedorPage> {
           ),
           onPressed: () {
             if (formKey.currentState.validate()) {
-              print("Guardar" + nombreController.text);
-              proveedorBloc.agregarProv(ProveedorModel(
-                  nombre: nombreController.text,
-                  apellidos: apellidosController.text,
-                  direccion: direccionController.text,
-                  telefono: telefonoController.text));
+              if (prov.id > 0) {
+                // Actualización
+                prov.nombre = nombreController.text;
+                prov.apellidos = apellidosController.text;
+                prov.direccion = direccionController.text;
+                prov.telefono = telefonoController.text;
+
+                proveedorBloc..editarProv(prov);
+              } else {
+                // Registro
+                proveedorBloc.agregarProv(ProveedorModel(
+                    nombre: nombreController.text,
+                    apellidos: apellidosController.text,
+                    direccion: direccionController.text,
+                    telefono: telefonoController.text));
+              }
             }
           },
         ),

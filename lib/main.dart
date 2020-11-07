@@ -4,6 +4,7 @@ import 'package:ultramarinos/src/pages/homePage.dart';
 import 'package:ultramarinos/src/pages/loginPage.dart';
 import 'package:ultramarinos/src/pages/menuPage.dart';
 import 'package:ultramarinos/src/pages/paginasMenu/listarProveedor.dart';
+import 'package:ultramarinos/src/pages/paginasMenu/proveedorPage.dart';
 import 'package:ultramarinos/src/pages/registroPage.dart';
 
 void main() => runApp(MyApp());
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
         'registro': (BuildContext context) => RegistroPage(),
         'menu': (BuildContext context) => MenuPage(),
         'fproducto': (BuildContext context) => FormularioProductoPage(),
-        'lproveedor': (BuildContext context) => ListarProveedor()
+        'lproveedor': (BuildContext context) => ListarProveedor(),
+        'proveedor': (BuildContext context) => ProveedorPage()
       },
     );
   }

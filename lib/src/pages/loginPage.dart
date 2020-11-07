@@ -180,14 +180,4 @@ class LoginPage extends StatelessWidget {
       );
     });
   }
-
-  // login() async {
-  //   // Map info = await usuarioProvider.login(bloc.email, bloc.password);
-
-  //   if (info['ok']) {
-  //     Navigator.pushReplacementNamed(context, 'home');
-  //   } else {
-  //     mostrarAlerta(context, info['mensaje']);
-  //   }
-  // }
 }
